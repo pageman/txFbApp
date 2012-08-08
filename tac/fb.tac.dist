@@ -1,0 +1,30 @@
+"""
+Copyright (c) 2012 Enrique Samson Jr. <enriquejr at gmail dot com>
+
+Distributed under the MIT License (See accompanying LICENSE.txt)
+
+
+Sample tac file. This will make the app accessible from http://<domain>/fb.
+"""
+
+import os
+path = "%s/.." % os.path.dirname(os.path.realpath(__file__))
+import sys
+sys.path.append(path)
+
+### START CONFIG ###
+### END CONFIG ####
+
+from twisted.application import service, internet
+from twisted.web.server import Site
+from twisted.web.resource import Resource
+from fbapp import fb
+
+application = service.Application('sugoim')
+
+root = Resource()
+fb = fb.Facebook()
+root.putChild('fb', fb)
+site = Site(root)
+
+internet.TCPServer(80, site).setServiceParent(application)
