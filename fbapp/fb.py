@@ -25,4 +25,4 @@ class Facebook(Resource):
         return res
 
     def render_GET(self, request):
-        return 'Welcome to My FB App'
+        return 'Welcome to My FB App!'
